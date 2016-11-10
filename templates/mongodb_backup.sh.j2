@@ -112,3 +112,4 @@ rm -r $DIR/backup/$FILE_NAME
 
 python mongodb_backup.py -k $AWS_ACCESS_KEY -s $AWS_SECRET_KEY -r $S3_REGION -b $S3_BUCKET -f $DIR/backup/$ARCHIVE_NAME -p $S3_KEY_PREFIX -c $BACKUP_DAYS_CNT
 
+rm -f $DIR/backup/$ARCHIVE_NAME
