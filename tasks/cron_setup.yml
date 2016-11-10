@@ -9,4 +9,4 @@
 - name: "Setup crons"
   cron: name="{{item.name}}" minute="{{item.minute}}" hour="{{item.hour}}" job="{{item.job}}"
   with_items:
-    - {name: "Mongo Backup", minute: "0", hour: "10", job: "{{ script_dir }}/mongodb_backup.sh"}
+    - {name: "Mongo Backup", minute: "0", hour: "10", job: "{{ script_dir }}/mongodb_backup.sh {backup_script_params}"}
