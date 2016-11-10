@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Amrit Singh
+  description: Ansible role to dumps the current mongo database, tars it, then sends it to an Amazon S3 bucket
+  license: MIT
+  min_ansible_version: 1.0
+  platforms:
+  - name: Ubuntu
+    versions:
+      - all
+  categories:
+    - web
+    - database
+    - mongo
+dependencies: []

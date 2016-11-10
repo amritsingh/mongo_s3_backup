@@ -1,0 +1,5 @@
+---
+
+packages_required: ['python', 'python-pip', 'tar']
+script_dir: /home/ubuntu
+

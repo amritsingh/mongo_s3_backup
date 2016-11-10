@@ -1,0 +1,12 @@
+---
+
+- include: prereq.yml
+
+- name: Copy scripts
+  template: src={{ item.src }} dest={{ item.dest }} mode="u=rwx,g=x,o=x"
+  with_items:
+    - {src: 'mongodb_backup.py', dest: "{{script_dir}}/mongodb_backup.py"}
+    - {src: 'mongodb_backup.sh', dest: "{{script_dir}}/mongodb_backup.sh"}
+
+- include: cron.yml
+

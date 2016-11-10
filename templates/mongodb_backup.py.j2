@@ -1,0 +1,67 @@
+#!/usr/bin/python
+
+import sys, getopt
+import datetime
+import tinys3
+
+def main(argv):
+    if not argv:
+        print_help()
+        sys.exit(2)
+    aws_access_key = ''
+    aws_secret_key = ''
+    s3_region = ''
+    s3_bucket = ''
+    file_to_upload = ''
+    file_prefix = ''
+    backup_days_cnt = ''
+    try:
+        opts, args = getopt.getopt(argv,"hk:s:r:b:f:p:c:",["aws_access_key=","aws_secret_key=","s3_region=","s3_bucket","file","file_prefix","backup_days_cnt"])
+    except getopt.GetoptError:
+        print_help()
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print_help()
+            sys.exit()
+        elif opt == "-k":
+            aws_access_key = arg
+        elif opt == "-s":
+            aws_secret_key = arg
+        elif opt == "-r":
+            s3_region = arg
+        elif opt == "-b":
+            s3_bucket = arg
+        elif opt == "-f":
+            file_to_upload = arg
+        elif opt == "-p":
+            file_prefix = arg
+        elif opt == "-c":
+            backup_days_cnt = arg
+    conn = tinys3.Connection(aws_access_key,aws_secret_key)
+
+    from datetime import datetime, timedelta
+
+    # current date
+    curr_date = datetime.utcnow().strftime("%Y%m%d")
+
+    # upload file
+    f = open(file_to_upload,'rb')
+    conn.upload(file_prefix + curr_date, f, s3_bucket)
+
+    backup_days_cnt = int(backup_days_cnt)
+
+
+    for date_offset in range(backup_days_cnt, backup_days_cnt*2):
+        date_n_days_ago = (datetime.utcnow() - timedelta(days=date_offset)).strftime("%Y%m%d")
+        try:
+            conn.delete(file_prefix + date_n_days_ago, s3_bucket)
+        except:
+            print 'No file ' + file_prefix + date_n_days_ago + 'found!'
+
+def print_help():
+    print 'test.py -k <aws_access_key> -s <aws_secret_key> -r <s3_region> -b <s3_bucket> -f <file> -p <file_prefix> -c <backup_days_cnt>'
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
+

@@ -1,0 +1,23 @@
+---
+
+- name: "Install apt packages"
+  apt: name={{ item }} state=present
+  with_items: "{{ packages_required }}"
+  when: ansible_os_family == "Debian"
+  sudo: True
+
+- name: "Install yum packages"
+  yum: name={{ item }} state=present
+  with_items: "{{ packages_required }}"
+  when: ansible_os_family == "RedHat"
+  sudo: True
+
+- name: "Install zypper packages"
+  zypper: name={{ item }} state=present
+  with_items: "{{ packages_required }}"
+  when: ansible_os_family == "Suse"
+  sudo: True
+
+- name: "Install tinys3"
+  command: "sudo pip install -U boto"
+  sudo: True
