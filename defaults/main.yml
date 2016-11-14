@@ -4,7 +4,7 @@ packages_required: ['python', 'python-pip', 'tar']
 script_dir: /home/ubuntu
 cron_minute: 0
 cron_hour: 10
-cron_day: *
-cron_month: *
-cron_weekday: *
+cron_day: "*"
+cron_month: "*"
+cron_weekday: "*"
 
