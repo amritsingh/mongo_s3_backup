@@ -1,12 +1,11 @@
 ---
 
 - name: "Remove existing crons"
-  cron: name="{{item.name}}" state=absent
-  with_items:
-    - {name: "Mongo Backup"}
+  cron: name="Mongo Backup" state=absent
   ignore_errors: True
 
 - name: "Setup crons"
-  cron: name="{{item.name}}" minute="{{item.minute}}" hour="{{item.hour}}" job="{{item.job}}"
+  cron: name="{{item.name}}" minute="{{item.minute}}" hour="{{item.hour}}" day="{{item.day}}" month="{{item.month}}" weekday="{{item.weekday}}" job="{{item.job}}"
   with_items:
-    - {name: "Mongo Backup", minute: "0", hour: "10", job: "{{ script_dir }}/mongodb_backup.sh {{ backup_script_params }}"}
+    - {name: "Mongo Backup", minute: "{{ cron_minute }}", hour: "{{ cron_hour }}", day: "{{ cron_day }}", month: "{{ cron_month }}", weekday: "{{ cron_weekday }}", job: "{{ script_dir }}/mongodb_backup.sh {{ backup_script_params }}"}
+
