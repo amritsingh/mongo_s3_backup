@@ -12,4 +12,7 @@ galaxy_info:
     - web
     - database
     - mongo
+    - mongodb
+    - backup
+    - s3
 dependencies: []
