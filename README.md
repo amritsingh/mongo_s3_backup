@@ -20,6 +20,11 @@ In the current version, following variables can be specified:
    - -a      Days of data to keep
 
    eg: "-u ubuntu -p password -k AWS_Access_Key -s AWS_Secret_Key -r Amazon_S3_region -b Amazon_S3_bucket_name -x backup -a 7"
+- cron_minute: Minute when the job should run - default: 0
+- cron_hour: Hour when the job should run - default: 10
+- cron_day: Day when the job should run - default: *
+- cron_month: Month when the job should run - default: *
+- cron_weekday: Weekday when the job should run - default: *
 
 Dependencies
 ------------
